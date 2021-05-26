@@ -87,7 +87,7 @@ public class Main extends JFrame {
 		lblNewLabel_1.setForeground(SystemColor.black);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("2.0.1");
+		JLabel lblNewLabel_2 = new JLabel("2.0.2.1");
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_2, 10, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -10, SpringLayout.SOUTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel_2, -362, SpringLayout.EAST, contentPane);

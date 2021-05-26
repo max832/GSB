@@ -179,17 +179,6 @@ public class Home extends JFrame {
 		
 		mnNewMenu.add(mntmNewMenuItem);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Déconnexion");
-		mntmNewMenuItem_2.setForeground(SystemColor.white);
-		mntmNewMenuItem_2.setBackground(Color.black);
-		mntmNewMenuItem_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-							Home.ouvrirFenetreMain();
-			}
-		});
-	        
-		mnNewMenu.add(mntmNewMenuItem_2);
-		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Quitter l'application");
 		mntmNewMenuItem_1.setForeground(SystemColor.white);
 		mntmNewMenuItem_1.setBackground(Color.black);

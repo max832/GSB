@@ -100,7 +100,7 @@ public class Maj extends JFrame {
 		 		contentPane.add(dateVerif);
 		 		
 		 		// Num�ro de version de l'application
-				final String num = "2.0.1";
+				final String num = "2.0.2.1";
 				
 				// Si les num�ros sont �gals alors message
 				if(num.equals(num_disp)) {
@@ -122,7 +122,7 @@ public class Maj extends JFrame {
 		
 		// Informations sur la version actuel (visible par l'utilisateur)
 		
-		JLabel lblNewLabel_1 = new JLabel("Galaxy Swiss Bourdin Version 2.0.1 For macOS");
+		JLabel lblNewLabel_1 = new JLabel("Galaxy Swiss Bourdin Version 2.0.2.1 For macOS");
 		//JLabel lblNewLabel_1 = new JLabel("Galaxy Swiss Bourdin Version 2.0.1 For Microsoft Windows");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 6, SpringLayout.SOUTH, lblNewLabel);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_1, 10, SpringLayout.WEST, contentPane);
