@@ -38,31 +38,31 @@ public class Maj extends JFrame {
 
 	public Maj(ObjtVisiteur currentUser) throws IOException {
 		
-		// Connexion base de donnï¿½es
+		// Connexion base de données
 		try (			     
 		         Connection conn = DriverManager.getConnection(
-		        		// Connexion Ã  la base de donnÃ©es (SupprimÃ©e pour des raisons de sÃ©curitÃ©)
-				
+		        			// Connexion à la base de données (Supprimée pour des raisons de sécurité)
+				         	);
 		         Statement stmt = conn.createStatement();
 		      ) { 
 				
-				// Requï¿½te de rï¿½cupï¿½ration des donnï¿½es en fonction du systï¿½me d'exploitation de l'utilisateur
+				// Requête de récupération des données en fonction du système d'exploitation de l'utilisateur
 			
-				String strSelect = "SELECT `id`, `num_disp`, `new`, `date` FROM `maj` WHERE `os` = 'macos'";
-		        //String strSelect = "SELECT `id`, `num_disp`, `new`, `date` FROM `maj` WHERE `os` = 'windows'";
+				//String strSelect = "SELECT `id`, `num_disp`, `new`, `date` FROM `maj` WHERE `os` = 'macos'";
+		        String strSelect = "SELECT `id`, `num_disp`, `new`, `date` FROM `maj` WHERE `os` = 'windows'";
 		 
 		         ResultSet rset = stmt.executeQuery(strSelect);
 
 		         while(rset.next()) {  
 		        	
-		            String id = rset.getString("id"); // id de la mise ï¿½ jour
-		            String num_disp = rset.getString("num_disp"); // Numï¿½ro de mise ï¿½ jour disponible sur les serveurs
-		            String news = rset.getString("new"); // Dï¿½tails de la derniï¿½re mise ï¿½ jour
+		            String id = rset.getString("id"); // id de la mise à jour
+		            String num_disp = rset.getString("num_disp"); // Numéro de mise à jour disponible sur les serveurs
+		            String news = rset.getString("new"); // Détails de la dernière mise à jour
 		            String date = rset.getString("date"); // Date de sortie de la maj
 
-		            System.out.println("* Donnï¿½es rï¿½cupï¿½rï¿½es Succï¿½s !*");
+		            System.out.println("* Données récupérées Succès !*");
 		            
-		// Rï¿½cupï¿½ration des donnï¿½es de l'utilisateurs connectï¿½s pour un affichage
+		// Récupération des données de l'utilisateurs connectés pour un affichage
 		String login = currentUser.getLogin();
 		String fonction = currentUser.getFonction();
 	    
@@ -82,38 +82,38 @@ public class Maj extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel, 10, SpringLayout.WEST, contentPane);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("Vï¿½rifier les mises ï¿½ jour disponibles pour le progiciel");
+		JButton btnNewButton = new JButton("Vérifier les mises à jour disponibles pour le progiciel");
 		sl_contentPane.putConstraint(SpringLayout.WEST, btnNewButton, 0, SpringLayout.WEST, lblNewLabel);
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/*
-				 * Ajout de la date et de l'heure de vï¿½rification de la derniï¿½re mise ï¿½ jour disponible.
+				 * Ajout de la date et de l'heure de vérification de la dernière mise à jour disponible.
 				 */
 				 DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		         Calendar calendar = Calendar.getInstance();
 		         System.out.println(format.format(calendar.getTime()));
 		         
-		         JLabel dateVerif = new JLabel("Derniï¿½re vï¿½rification le "+format.format(calendar.getTime())+"");
+		         JLabel dateVerif = new JLabel("Dernière vérification le "+format.format(calendar.getTime())+"");
 		 		sl_contentPane.putConstraint(SpringLayout.NORTH, dateVerif, 15, SpringLayout.SOUTH, btnNewButton);
 				sl_contentPane.putConstraint(SpringLayout.WEST, dateVerif, 0, SpringLayout.WEST, lblNewLabel);
 		 		contentPane.add(dateVerif);
 		 		
-		 		// Numï¿½ro de version de l'application
-				final String num = "2.0.2.1";
+		 		// Numéro de version de l'application
+				final String num = "2.0.3";
 				
-				// Si les numï¿½ros sont ï¿½gals alors message
+				// Si les numéros sont égals alors message
 				if(num.equals(num_disp)) {
 					Component frame = null;
-					JOptionPane.showMessageDialog(frame, "Aucune mise ï¿½ jour disponible ! ", "Update GSB", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "Aucune mise à jour disponible ! ", "Update GSB", JOptionPane.WARNING_MESSAGE);
 					
-				// Si les numï¿½ros ne sont pas ï¿½gaux alors : message + ouverture de la page de tï¿½lï¿½chargement
+				// Si les numéros ne sont pas égaux alors : message + ouverture de la page de téléchargement
 				}else{
 					Component frame = null;
-					JOptionPane.showMessageDialog(frame, "Une mise ï¿½ jour est disponible !", "Update GSB", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "Une mise à jour est disponible !", "Update GSB", JOptionPane.WARNING_MESSAGE);
 				
 					try {
-					    Desktop.getDesktop().browse(new URL("URL (SupprimÃ©e pour des raisons de sÃ©curitÃ©)").toURI());
+					    Desktop.getDesktop().browse(new URL("URL").toURI());
 					} catch (Exception err) {}
 				}
 			}
@@ -122,8 +122,8 @@ public class Maj extends JFrame {
 		
 		// Informations sur la version actuel (visible par l'utilisateur)
 		
-		JLabel lblNewLabel_1 = new JLabel("Galaxy Swiss Bourdin Version 2.0.2.1 For macOS");
-		//JLabel lblNewLabel_1 = new JLabel("Galaxy Swiss Bourdin Version 2.0.1 For Microsoft Windows");
+		//JLabel lblNewLabel_1 = new JLabel("Galaxy Swiss Bourdin Version 2.0.3 For macOS");
+		JLabel lblNewLabel_1 = new JLabel("Galaxy Swiss Bourdin Version 2.0.3 For Microsoft Windows");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 6, SpringLayout.SOUTH, lblNewLabel);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_1, 10, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, 45, SpringLayout.SOUTH, lblNewLabel);
@@ -136,24 +136,24 @@ public class Maj extends JFrame {
 		sl_contentPane.putConstraint(SpringLayout.EAST, lblNewLabel_2, 216, SpringLayout.WEST, contentPane);
 		contentPane.add(lblNewLabel_2);
 		
-		JLabel lblMiseJour = new JLabel("Mise ï¿½ jour   ");
+		JLabel lblMiseJour = new JLabel("Mise à jour   ");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblMiseJour, 29, SpringLayout.SOUTH, lblNewLabel_2);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, btnNewButton, 16, SpringLayout.SOUTH, lblMiseJour);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblMiseJour, 0, SpringLayout.WEST, lblNewLabel);
 		lblMiseJour.setFont(new Font("Verdana Pro Black", Font.ITALIC, 20));
 		contentPane.add(lblMiseJour);
 		
-		JLabel lblNewLabel_3 = new JLabel("Derniï¿½re mise ï¿½ jour disponible : "+num_disp+" du "+date+"");
+		JLabel lblNewLabel_3 = new JLabel("Dernière mise à jour disponible : "+num_disp+" du "+date+"");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 40, SpringLayout.SOUTH, btnNewButton);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_3, 0, SpringLayout.WEST, lblNewLabel);
 		contentPane.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("Dï¿½tails : "+news+"");
+		JLabel lblNewLabel_4 = new JLabel("Détails : "+news+"");
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 6, SpringLayout.SOUTH, lblNewLabel_3);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblNewLabel_4, 0, SpringLayout.WEST, lblNewLabel);
 		contentPane.add(lblNewLabel_4);
 		      	  }
-		// Fin de connexion ï¿½ la base de donnï¿½es    	 
+		// Fin de connexion à la base de données    	 
 	    } catch(SQLException ex) {
 	       ex.printStackTrace();
 	    } 

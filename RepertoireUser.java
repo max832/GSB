@@ -11,24 +11,24 @@ import javax.swing.border.EmptyBorder;
 
 import com.sun.jdi.event.EventQueue;
 
-public class Repertoire extends JFrame {
+public class RepertoireUser extends JFrame {
 
 	private JPanel contentPane;
 
 	public static void main(String[] args) {
 
 				try {
-					Repertoire frame = new Repertoire();
+					RepertoireUser frame = new RepertoireUser();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 
-	public Repertoire() {
+	public RepertoireUser() {
 		
 		setResizable(false);
-		setTitle("Répertoire des saisies");
+		setTitle("Répertoire des utilisateurs");
 		setBounds(100, 100, 450, 524);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -36,35 +36,36 @@ public class Repertoire extends JFrame {
 		setContentPane(contentPane);
 		setSize(501,495);
 		setResizable(false);
-	
+		
 		  // Connexion à la base de données
 		  try (			     
 			         Connection conn = DriverManager.getConnection(
 			        		 	// Connexion à la base de données (Supprimée pour des raisons de sécurité)
 				         	);
-					
 			         Statement stmt = conn.createStatement();
 			      ) { 
 					
 	      // Requête
-	      String query = "SELECT `id`, `employe`, `region`, `compte` FROM `donnee`";
+	      String query = "SELECT `id`, `login`, `mdp`, `fonction`, `region` FROM `utilisateur`";
 	    
 	      ResultSet res = stmt.executeQuery(query);
 	      
 	      // Récupérations de toutes les données dans un tableau
-	      String columns[] = {"N° fiche", "N° d'employé", "N° de région", "Entreprise ciblé"};
-	      String data[][] = new String[200][4];
+	      String columns[] = {"N° Employé", "Login", "Mot de passe", "Fonction", "Région"};
+	      String data[][] = new String[200][5];
 	    
 	      int i = 0;
 	      	while (res.next()){
 	      		String id = res.getString("id");
-	      		String employe = res.getString("employe");
+	      		String login = res.getString("login");
+	      		String mdp = res.getString("mdp");
+	      		String fonction = res.getString("fonction");
 	      		String region = res.getString("region");
-	      		String compte = res.getString("compte");
 	      			data[i][0] = id + "";
-	      			data[i][1] = employe;
-	      			data[i][2] = region;
-	      			data[i][3] = compte;
+	      			data[i][1] = login;
+	      			data[i][2] = mdp;
+	      			data[i][3] = fonction;
+	      			data[i][4] = region;
 	      			i++;
 	      	}
 	      

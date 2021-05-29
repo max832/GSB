@@ -17,6 +17,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,8 +27,8 @@ import javax.swing.JButton;
 
 public class Responsable extends JFrame {
 
-	//Dï¿½but des procï¿½dures
-	// procï¿½dure d'ouverture de "First"
+	//Début des procédures
+	// procédure d'ouverture de "First"
     private static First frameFirst;
     
     public static First getFenetreFirst() {
@@ -48,7 +51,43 @@ public class Responsable extends JFrame {
         frameFirst.setVisible(true);
         return frameFirst;
 }
- // Fin des procï¿½dures d'ouvertures
+    
+    private static UserAdd frameUserAdd;
+    
+    public static UserAdd getFenetreUserAdd() {
+             return frameUserAdd; 
+    }
+ 
+    public static boolean fenetreUserAddEstOuverte() {
+             return frameUserAdd!=null ; 
+    }
+    
+    public static UserAdd ouvrirFenetreUserAdd() {
+        if ( frameUserAdd==null ) {
+       	 frameUserAdd =new UserAdd();
+        }
+        frameUserAdd.setVisible(true);
+        return frameUserAdd;
+}
+    
+    private static UserSupp frameUserSupp;
+    
+    public static UserSupp getFenetreUserSupp() {
+             return frameUserSupp; 
+    }
+ 
+    public static boolean fenetreUserSuppEstOuverte() {
+             return frameUserSupp!=null ; 
+    }
+    
+    public static UserSupp ouvrirFenetreUserSupp() {
+        if ( frameUserSupp==null ) {
+       	 frameUserSupp =new UserSupp();
+        }
+        frameUserSupp.setVisible(true);
+        return frameUserSupp;
+}
+ // Fin des procédures d'ouvertures
     
 	private JPanel contentPane;
      
@@ -65,11 +104,89 @@ public class Responsable extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		setResizable(false);
-		JLabel lblGalaxySwissBourdin = new JLabel("Galaxy Swiss Bourdin");
+		JLabel lblGalaxySwissBourdin = new JLabel("Espace Responsable ");
 		lblGalaxySwissBourdin.setFont(new Font("Tahoma", Font.BOLD, 17));
 		contentPane.add(lblGalaxySwissBourdin, BorderLayout.NORTH);
 		
-		JButton btnNewButton_1 = new JButton("Analyse sous forme de graphique en fonction d'une rï¿½gion");
+		// Menu
+				JMenuBar menuBar = new JMenuBar();
+				menuBar.setForeground(SystemColor.white);
+				menuBar.setBackground(Color.white);
+				setJMenuBar(menuBar);
+				
+				JMenu mnNewMenu = new JMenu("Autres actions ");
+				mnNewMenu.setForeground(Color.black);
+				mnNewMenu.setBackground(Color.white);
+				menuBar.add(mnNewMenu);
+				
+				JMenuItem mntmNewMenuItem8 = new JMenuItem("Ajouter un nouveau compte utilisateur");
+				mntmNewMenuItem8.setForeground(SystemColor.white);
+				mntmNewMenuItem8.setBackground(Color.black);
+				mntmNewMenuItem8.addActionListener(new ActionListener() {
+		      
+					public void actionPerformed(ActionEvent e) {
+						Responsable.ouvrirFenetreUserAdd();
+					}
+				});
+				
+				mnNewMenu.add(mntmNewMenuItem8);
+				
+				JMenuItem mntmNewMenuItem19 = new JMenuItem("Supprimer un compte utilisateur");
+				mntmNewMenuItem19.setForeground(SystemColor.white);
+				mntmNewMenuItem19.setBackground(Color.black);
+				mntmNewMenuItem19.addActionListener(new ActionListener() {
+		      
+					public void actionPerformed(ActionEvent e) {
+						Responsable.ouvrirFenetreUserSupp();
+					}
+				});
+				
+				mnNewMenu.add(mntmNewMenuItem19);
+				
+				JMenuItem mntmNewMenuItem9 = new JMenuItem("Supprimer une fiche saisie");
+				mntmNewMenuItem9.setForeground(SystemColor.white);
+				mntmNewMenuItem9.setBackground(Color.black);
+				mntmNewMenuItem9.addActionListener(new ActionListener() {
+		      
+					public void actionPerformed(ActionEvent e) {
+						
+						// Demande du numéro de la fiche pour la suprimer de la base de données
+						 ImageIcon icon = new ImageIcon("");
+				         Object anchor = null;
+				         Object[] eventCache = null;
+				         String numero = (String) JOptionPane.showInputDialog(null, "Entrer le numéro de fiche à supprimer (Utilisez le \"Repertoire des saisies\" (Accueil > Réglages > Repertoire des saisies) :", 
+				                 "GSB", JOptionPane.QUESTION_MESSAGE, icon, eventCache, anchor);
+				         
+				         	// Connexion à la base de données
+							try {
+					
+							         Connection conn = DriverManager.getConnection(
+							        			// Connexion à la base de données (Supprimée pour des raisons de sécurité)
+				         						);
+							         
+							         java.sql.Statement stmt = conn.createStatement();
+						 
+							 // Requête
+									String insertQuery = "DELETE FROM `donnee` WHERE id='"+numero+"'";
+									   
+							       
+									int x = stmt.executeUpdate(insertQuery);
+									System.out.println(x);
+							  
+							 // Confirmation de la supression de la fiche 
+							    Component frame = null;
+								JOptionPane.showMessageDialog(frame,"Votre fiche "+numero+" à bien été suprimer !");
+								
+							 // Fin de la connexion à la base de données  
+						      } catch(SQLException ex) {
+						    	  System.out.println(ex);
+						      } 
+					}
+				});
+				
+				mnNewMenu.add(mntmNewMenuItem9);
+				
+		JButton btnNewButton_1 = new JButton("Analyse sous forme de graphique en fonction d'une région");
 		btnNewButton_1.setForeground(SystemColor.black);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
 		btnNewButton_1.setBackground(Color.WHITE);
@@ -79,48 +196,6 @@ public class Responsable extends JFrame {
 					}
 				});
 		contentPane.add(btnNewButton_1, BorderLayout.CENTER);
-		
-		JButton btnNewButton_10 = new JButton("Suprimer un fiche saisie");
-		btnNewButton_10.setForeground(SystemColor.black);
-		btnNewButton_10.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
-		btnNewButton_10.setBackground(Color.WHITE);
-		btnNewButton_10.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-					// Demande du numï¿½ro de la fiche pour la suprimer de la base de donnï¿½es
-					 ImageIcon icon = new ImageIcon("");
-			         Object anchor = null;
-			         Object[] eventCache = null;
-			         String numero = (String) JOptionPane.showInputDialog(null, "Entrer le numï¿½ro de fiche ï¿½ supprimer (Utilisez le \"Repertoire des saisies\" (Accueil > Rï¿½glages > Repertoire des saisies) :", 
-			                 "GSB", JOptionPane.QUESTION_MESSAGE, icon, eventCache, anchor);
-			         
-			         	// Connexion ï¿½ la base de donnï¿½es
-						try {
-				
-						         Connection conn = DriverManager.getConnection(
-						        		// Connexion Ã  la base de donnÃ©es (SupprimÃ©e pour des raisons de sÃ©curitÃ©)
-						         
-						         java.sql.Statement stmt = conn.createStatement();
-					 
-						 // Requï¿½te
-								String insertQuery = "DELETE FROM `donnee` WHERE id='"+numero+"'";
-								   
-						       
-								int x = stmt.executeUpdate(insertQuery);
-								System.out.println(x);
-						  
-						 // Confirmation de la supression de la fiche 
-						    Component frame = null;
-							JOptionPane.showMessageDialog(frame,"Votre fiche "+numero+" ï¿½ bien ï¿½tï¿½ suprimer !");
-							
-						 // Fin de la connexion ï¿½ la base de donnï¿½es  
-					      } catch(SQLException ex) {
-					    	  System.out.println(ex);
-					      } 
-					}
-			});
-
-		contentPane.add(btnNewButton_10, BorderLayout.NORTH);
 		
 	}
 
